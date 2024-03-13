@@ -11,18 +11,41 @@ private:
 public:
     Date()
     {
-        cout << "Inside Date Parameterless Ctor- " << endl;
+       
         day = 1;
         month = 1;
         year = 2000;
     }
     Date(int day, int month, int year)
     {
-        cout << "Inside Date Parameterized Ctor- " << endl;
+       
         this->day = day;
         this->month = month;
         this->year = year;
     }
+
+    void setday(int day){
+        this->day=day;
+    }
+    void setmonth(int month){
+        this->month=month;
+    }
+    void setyear(int year){
+        this->year=year;
+    }
+
+    int getday(){
+        return this->day;
+    }
+     int getmonth(){
+        return this->month;
+    }
+     int getyear(){
+        return this->year;
+    }
+
+
+
     void acceptDate()
     {
         cout << "Enter day - ";
@@ -50,14 +73,41 @@ public:
     person()
     {
         cout << "Inside Car parameterless Ctor- " << endl;
+        
     }
-    person(string name, string address ,int birtdate,int day,int month,int year):birtdate(day, month, year)
+    person(string name, string address ,int day,int month,int year):birtdate(day, month, year)
     {
         this->name = name;
         this->address =address;
 
-        this->birtdate = birtdate;
+        //  this->birtdate = birtdate;
     }
+
+    void setname(string name){
+        this->name=name;
+    }
+    void setaddress( string address){
+        this->address=address;
+    }
+    void setbirtdate(int day,int month,int year){
+        birtdate.setday(day);
+        birtdate.setmonth(month);
+        birtdate.setyear(year);
+
+
+    }
+
+    string getname(){
+        return this->name;
+    }
+     string getadress(){
+        return this->address;
+    }
+     void getbirthdate(){
+        return birtdate.displayDate();
+        }
+
+
     void acceptperson()
     {
         cout << "Enter name of person - ";
@@ -65,14 +115,13 @@ public:
         cout << "Enter the address of person - ";
         cin >> address;
         cout << "Enter the birtdate - ";
-        cin >> birtdate;
+        birtdate.acceptDate();
     }
     void displayperson()
     {
         cout << "Name of person - " << name << endl;
         cout << "Adress of person- " << address << endl;
-        cout << "birtdate of person " << birtdate << endl;
-
+        birtdate.displayDate();
     }
 };
 
@@ -80,84 +129,155 @@ class Employee
 {
 private:
     int empid;
-    string name;
+    string dept;
     double salary;
-    Date doj;         // Association -> Composition
-    //person *cptr = NULL; // Association -> Aggegration
+    Date doj;         
 
 public:
     Employee()
     {
-        cout << "Inside Employee Paramaterless Ctor " << endl;
+       
         empid = 0;
-        name = "";
+        dept= "server";
         salary = 100;
     }
 
     Employee(int empid, string name, double salary)
     {
-        cout << "Inside Employee Parameterized Ctor " << endl;
+       
         this->empid = empid;
-        this->name = name;
+        this->dept = dept;
         this->salary = salary;
     }
 
     Employee(int empid, string name, double salary, int day, int month, int year) : doj(day, month, year)
     {
-        cout << "Inside Employee Parameterized Ctor " << endl;
+       
         this->empid = empid;
-        this->name = name;
+        this->dept = dept;
         this->salary = salary;
     }
 
     Employee(int empid, string name, double salary, int day, int month, int year,  string address,int birthdate) : doj(day, month, year)
     {
-        cout << "Inside Employee Parameterized Ctor " << endl;
+        
         this->empid = empid;
-        this->name = name;
+        this->dept = dept;
         this->salary = salary;
-        cptr = new person(name, address ,birthdate);
+      
     }
+    void setempid(int empid){
+        this->empid=empid;
+    }
+    void setdept(string dept){
+        this->dept=dept;
+    }
+    void setsalary(double salary){
+        this->salary=salary;
+    }
+   
+   void setdoj(int day,int month,int year){
+        doj.setday(day);
+        doj.setmonth(month);
+        doj.setyear(year);
+
+
+    }
+
+
+
+    int getempid(){
+        return this->empid;
+    }
+     string getdept(){
+        return this->dept;
+    }
+     double getsalary(){
+        return this->salary;
+    }
+
+   void getdoj(){
+    doj.displayDate();
+   }
 
     void acceptEmployee()
     {
         cout << "Enter empid - ";
         cin >> empid;
-        cout << "Enter name - ";
-        cin >> name;
+        cout << "Enter Department name- ";
+        cin >> dept;
         cout << "Enter salary - ";
         cin >> salary;
         cout << "Enter Date of joining - " << endl;
-        birthdate.acceptDate();
+        doj.acceptDate();
     }
 
     void displayEmployee()
     {
         cout << "Empid - " << empid << endl;
-        cout << "Name - " << name << endl;
+        cout << "dept - " << dept<< endl;
         cout << "Salary - " << salary << endl;
         cout << "Joining  ";
-        birthdate.displaydate();
+        doj.displayDate();
 
 
 
-    ~Employee()
-    {
-        if (cptr != NULL)
-        {
-            delete cptr;
-            cptr = NULL;
-        }
     }
 };
 
 int main()
 {
-    Employee e1;
-
-    e1.acceptEmployee();
-    e1.addperson();
+    int eid;
+    string newdept;
+    double newsalary;
+    int newyear,newmonth,newday;
+    Employee e1(100,"Hr",50000,10,12,2023);
     e1.displayEmployee();
-   
+
+    Employee e2;
+    cout<<"Enter detils of employee:"<<endl;
+    e2.acceptEmployee();
+    e2.displayEmployee();
+
+cout<<"Enter new id employee:"<<endl;
+cin>>eid;
+e2.setempid(eid);
+
+cout<<"Enter new dept"<<endl;
+cin>>newdept;
+e2.setdept(newdept);
+
+cout<<"Enter new salary of employee:"<<endl;
+cin>>newsalary;
+e2.setsalary(newsalary);
+
+cout<<"Enter the new date of joining"<<endl;
+cout<<"Enter a day"<<endl;
+cin>>newday;
+cout<<"Enter a month"<<endl;
+cin>>newmonth;
+cout<<"Enter a year"<<endl;
+cin>>newyear;
+e2.setdoj(newday,newmonth,newyear);
+
+
+cout<<"new values are :"<<endl;
+
+cout<<"empid is:"<<e2.getempid()<<endl;
+cout<<"new dept is:"<<e2.getdept()<<endl;
+cout<<"new salary is:"<<e2.getsalary()<<endl;
+cout<<"doj is";
+e2.getdoj();
+
+
+
+
+
+
+
+
+
+
+
     return 0;
 }
