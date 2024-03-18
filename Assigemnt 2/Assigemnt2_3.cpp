@@ -12,7 +12,6 @@ namespace NStudent
         string Name;
 
         int Marks;
-
     public:
         void initDate()
         {
